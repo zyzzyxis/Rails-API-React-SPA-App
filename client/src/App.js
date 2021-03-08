@@ -3,6 +3,7 @@ import './App.css';
 import Tasks from './components/Tasks';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import TaskForm from './components/TaskForm';
 
 
 const App = (props) => {
@@ -22,7 +23,9 @@ const App = (props) => {
    }
   return (
     <div className="App">
+      <TaskForm />
       <Tasks tasks={tasks}/>
+      
 
       
     </div>
