@@ -4,7 +4,7 @@ import Tasks from './components/Tasks';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import TaskForm from './components/TaskForm';
-import Task from './components/Task'
+// import Task from './components/Task'
 
 
 const App = () => {
@@ -42,15 +42,30 @@ const App = () => {
      setEditTask(task)
    }
 
+   const addTask = (task) => {
+     setShowForm(false)
+     setTasks([task, ...tasks])
+   }
+
+   const updateTask = (editedTask) => {
+     const updateTasks = tasks.map (task =>{
+       return task.id !== editedTask.id ? task : editedTask
+     })
+     setEditTask(null)
+     setTasks(updateTasks)
+   }
+
+   const deleteTask = (taskID) => {
+     const filterTasks = tasks.filter (task => task.id !== taskID)
+     setTasks(filterTasks)
+   }
+
+
    const getPage = () => {
-     return showForm ? <TaskForm /> : 
-      editTask ? <TaskForm {...editTask} setEditTask={setEditTask}/> :
-      <Tasks tasks={tasks} editTaskClickHandler={editTaskClickHandler}/>
-    }
-
-   
-
-
+    return showForm ? <TaskForm addTask={addTask} /> : 
+     editTask ? <TaskForm {...editTask} updateTask={updateTask} setEditTask={setEditTask}/> :
+     <Tasks tasks={tasks} deleteTask={deleteTask} editTaskClickHandler={editTaskClickHandler}/>
+   }
 
 
   return (

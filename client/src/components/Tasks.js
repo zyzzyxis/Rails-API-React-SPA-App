@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react'
 
 
 const Tasks = (props) => {
-  const {tasks, setShowForm, editTaskClickHandler} = props
+  const {tasks, setShowForm, editTaskClickHandler, deleteTask} = props
   const [tasksx, setTasks] = useState([])
  
   useEffect(() => {
@@ -22,11 +22,11 @@ const Tasks = (props) => {
   }
   
   const renderTasks = () => {
-    if(tasks.length == 0){
+    if(tasks.length === 0){
       return <h1>No Tasks</h1>
     }
     return tasks.map( task => {
-      return <Task key={task.id} editTaskClickHandler={editTaskClickHandler} setTaskForm={setShowForm} {...task} />
+      return <Task key={task.id} deleteTask={deleteTask} editTaskClickHandler={editTaskClickHandler} setTaskForm={setShowForm} {...task} />
     })
   }
 
@@ -35,17 +35,7 @@ const Tasks = (props) => {
     {renderTasks()}
     </>
   )
-  // const {tasks} = props
-  // const renderTasks = () => {
-  //   return tasks.map( task => { return <Task key={task.id}{...task}/>})
-    
-  // }
-  // return (
-  //   <>
-  //     <h1>Tasks Here</h1>
-  //     {renderTasks()}
-  //   </>
-  // )
+  
 }
 
 
