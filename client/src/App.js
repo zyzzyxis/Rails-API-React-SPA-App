@@ -4,14 +4,14 @@ import Tasks from './components/Tasks';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import TaskForm from './components/TaskForm';
-import Task from './Tasks'
+import Task from './components/Task'
 
 
-const App = (props) => {
-  //  const [tasks, setTasks] = useState([])
-  //  const [showForm, setShowForm] = useState(false)
+const App = () => {
+   const [tasks, setTasks] = useState([])
+   const [showForm, setShowForm] = useState(false)
    const [editTask, setEditTask] = useState(null)
-   const {tasks, setShowForm, editTaskClickHandler} = props
+  //  const {tasks, setShowForm, editTaskClickHandler} = props
 
    useEffect(() => {
     getTasks()
@@ -23,8 +23,7 @@ const App = (props) => {
        let response = await axios.get('/api/tasks')
        setTasks(response.data)
      } catch(err) {
-       console.log(err)
-
+       alert('error occurred debug')
      }
    }
 
@@ -34,19 +33,19 @@ const App = (props) => {
    }
 
    const getNavBar =() => {
-    return (showForm ||editTask) ? <div onClick ={goHome}>Home</div> :
+    return (showForm || editTask) ? <div onClick ={goHome}>Home</div> :
     <div onClick={()=> setShowForm(true)}>New</div>
    }
+
    const editTaskClickHandler =(id)=> {
-     let task = task.find ( task => task.id === id)
+     let task = tasks.find ( task => task.id === id)
      setEditTask(task)
    }
 
    const getPage = () => {
-     return showForm ? <TaskForm />: 
+     return showForm ? <TaskForm /> : 
       editTask ? <TaskForm {...editTask} setEditTask={setEditTask}/> :
-      <Task task={task} editTaskClickHandler={editTaskClickHandler}/>
-      
+      <Tasks tasks={tasks} editTaskClickHandler={editTaskClickHandler}/>
     }
 
    
