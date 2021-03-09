@@ -4,12 +4,14 @@ import Tasks from './components/Tasks';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import TaskForm from './components/TaskForm';
+import Task from './Tasks'
 
 
 const App = (props) => {
-   const [tasks, setTasks] = useState([])
-   const [showForm, setShowForm] = useState(false)
+  //  const [tasks, setTasks] = useState([])
+  //  const [showForm, setShowForm] = useState(false)
    const [editTask, setEditTask] = useState(null)
+   const {tasks, setShowForm, editTaskClickHandler} = props
 
    useEffect(() => {
     getTasks()
@@ -28,7 +30,7 @@ const App = (props) => {
 
    const goHome = () => {
      setShowForm(false)
-     setEditTasks(null)
+     setEditTask(null)
    }
 
    const getNavBar =() => {
@@ -47,16 +49,17 @@ const App = (props) => {
       
     }
 
+   
+
 
 
 
   return (
     <div className="App">
-      <TaskForm />
-      <Tasks tasks={tasks}/>
-      
-
-      
+      {/* <TaskForm />
+      <Tasks tasks={tasks}/> */}
+      {getNavBar()}
+      {getPage()}
     </div>
   );
 }
